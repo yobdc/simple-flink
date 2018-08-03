@@ -1,6 +1,6 @@
-#DateSet的API详解四
-#一、Flink DataSetUtils常用API
-##self
+# DateSet的API详解四
+# 一、Flink DataSetUtils常用API
+## self
 ```
 val self: DataSet[T]
 
@@ -25,7 +25,7 @@ res133: Boolean = true
 ```
 
 
-##countElementsPerPartition
+## countElementsPerPartition
 ```
 def countElementsPerPartition: DataSet[(Int, Long)]
 
@@ -63,7 +63,7 @@ c1: Seq[(Int, Long)] = Buffer((0,2), (1,2), (2,2))
 ```
 
 
-##checksumHashCode
+## checksumHashCode
 ```
 def checksumHashCode(): ChecksumHashCode
 
@@ -86,7 +86,7 @@ res140: org.apache.flink.api.java.Utils.ChecksumHashCode =
 ChecksumHashCode 0x0000000000000195, count 6
 ```
 
-##zipWithIndex
+## zipWithIndex
 ```
 defzipWithIndex: DataSet[(Long, T)]
 
@@ -114,7 +114,7 @@ flink web ui中的执行效果：
 ![](images/Snip20161123_17.png) 
 
 
-##zipWithIndex
+## zipWithIndex
 ```
 def zipWithUniqueId: DataSet[(Long, T)]
 
@@ -142,14 +142,14 @@ flink web ui中的执行效果：
 
 
 
-#二、Flink DataSet 扩展API
-##注意：必须引入
+# 二、Flink DataSet 扩展API
+## 注意：必须引入
 
 ```
 import org.apache.flink.api.scala.extensions._
 ```
 
-##mapWith
+## mapWith
 ```
 def mapWith[R](fun: (T) ⇒ R)(implicit arg0: TypeInformation[R], arg1: ClassTag[R]):DataSet[R]
 
@@ -204,7 +204,7 @@ res155: Seq[Double] = Buffer(2.0, 6.0, 10.0)
 ```
 
 
-##filterWith
+## filterWith
 ```
 def filterWith(fun: (T) ⇒ Boolean): DataSet[T]
 Applies a predicate fun to each item of the data set,
@@ -213,7 +213,7 @@ keeping only those for which the predicate holds
 可以使用片函数进行filter操作。
 ```
 
-###filterWith示例一：全函数
+### filterWith示例一：全函数
 执行程序：
 ```
 //1.引入增强依赖
@@ -238,7 +238,7 @@ res153: Seq[Point] = Buffer(Point(3.0,4.0))
 flink web ui中的执行效果：
 ![](images/Snip20161123_19.png) 
 
-###filterWith示例二：全函数
+### filterWith示例二：全函数
 执行程序：
 ```
 //1.引入增强依赖
@@ -262,7 +262,7 @@ res154: Seq[Point] = Buffer(Point(3.0,4.0), Point(5.0,6.0))
 ```
 
 
-##reduceWith
+## reduceWith
 ```
 def reduceWith(fun: (T, T) ⇒ T): DataSet[T]
 Applies a reducer fun to the data set
@@ -292,7 +292,7 @@ r.collect
 res159: Seq[Point] = Buffer(Point(9.0,12.0))
 ```
 
-##flatMapWith
+## flatMapWith
 ```
 def flatMapWith[R](fun: (T) ⇒ 
 TraversableOnce[R])(implicit arg0: TypeInformation[R], arg1: ClassTag[R]): DataSet[R]
