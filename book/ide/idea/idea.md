@@ -1,22 +1,22 @@
-##一、准备flink的开发环境
-###1.创建project
+## 一、准备flink的开发环境
+### 1.创建project
 ![](images/Snip20161127_25.png) 
-###2.选择Scala project
+### 2.选择Scala project
 ![](images/Snip20161127_5.png) 
-###3.输入project基本信息
+### 3.输入project基本信息
 ![](images/Snip20161127_6.png) 
 ```
 1.填写项目的名称信息
 2.填写项目的位置信息
 ```
-###4.project创建成功后的效果
+### 4.project创建成功后的效果
 ![](images/Snip20161127_7.png) 
-###5.配置project's SDK
+### 5.配置project's SDK
 ![](images/Snip20161127_8.png) 
 ```
 选择Java的本地安装目录，也就是$JAVA_HOME
 ```
-###6.配置modules的目录属性
+### 6.配置modules的目录属性
 ![](images/Snip20161127_9.png) 
 ```
 1.配置java的source目录，以便进行flink的Java开发
@@ -24,28 +24,28 @@
 3.其他目录，以后用到再进行配置
 ```
 
-###7.配置libraries
+### 7.配置libraries
 ![](images/Snip20161127_15.png) 
 ```
 1.选择scala的本地安装目录，也就是$SCALA_HOME
 2.选择flink的本地安装目录，也就是$FLINK_HOME
 ```
 ##二、开发并运行flink程序
-###1.创建package
+### 1.创建package
 ![](images/Snip20161127_21.png) 
-###2.输入package名称
+### 2.输入package名称
 ![](images/Snip20161127_23.png) 
-###3.创建object
+### 3.创建object
 ![](images/Snip20161127_26.png) 
 ```
 注意：为了简单起见，要选择object，不要选择class.不然在代码里面还要改动。
 ```
 
-###4.输入object名称
+### 4.输入object名称
 ![](images/Snip20161127_30.png) 
-###5.创建后的默认代码
+### 5.创建后的默认代码
 ![](images/Snip20161127_31.png) 
-###6.编写程序
+### 6.编写程序
 ```scala
 package code.helloword
 
@@ -72,33 +72,33 @@ object HelloFlink {
   }
 }
 ```
-###7.运行程序
+### 7.运行程序
 ![](images/Snip20161127_33.png) 
 
-###8.运行效果
+### 8.运行效果
 ![](images/Snip20161127_35.png) 
 
 ##三、打包到服务器上运行
-###1.配置artfact
+### 1.配置artfact
 ![](images/Snip20161127_42.png)
-###2.选择程序入口class
+### 2.选择程序入口class
 ![](images/Snip20161127_44.png)
-###3.删除不必要的libraries
+### 3.删除不必要的libraries
 ![](images/Snip20161127_45.png)
-###4.配置好的效果
+### 4.配置好的效果
 ![](images/Snip20161127_46.png)
-###5.build artfact
+### 5.build artfact
 ![](images/Snip20161127_49.png)
-###6.选择build或rebuild
+### 6.选择build或rebuild
 ![](images/Snip20161127_50.png)
-###7.选择build成果物展示
+### 7.选择build成果物展示
 ![](images/Snip20161127_53.png)
-###8.上传到服务器，并运行jar
+### 8.上传到服务器，并运行jar
 ```
 ${FLINK_HOME}/bin/flink run  -m qingcheng11:6123  simple-flink.jar
 ```
-###9.terminal中的执行效果
+### 9.terminal中的执行效果
 ![](images/Snip20161127_55.png)
 ![](images/Snip20161127_56.png)
-###10.flink-web-UI中的执行效果
+### 10.flink-web-UI中的执行效果
 ![](images/Snip20161127_57.png)

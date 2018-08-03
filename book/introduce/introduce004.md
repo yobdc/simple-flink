@@ -1,8 +1,8 @@
 
 
-##三、类库和API
+## 三、类库和API
 
-###1.流处理程序
+### 1.流处理程序
 
 ```
 flink的 DataStream API在流处理的业务场景下，支持多种数据转换，支持用户自定义状态的操作，支持灵活的窗口操作！
@@ -30,7 +30,7 @@ val counts = text
 以上程序演示了如何在一个数据流上，对源源不断流入的消息进行一个word-count操作！
 ```
 
-###2.批处理程序
+### 2.批处理程序
 
 ```
 flink的 DataSet API具有以下特性：
@@ -70,8 +70,8 @@ val result = initialRanks.iterate(30) { pages =>
 ```
 
 
-###3.类库和软件栈
-###flink的软件栈  
+### 3.类库和软件栈
+### flink的软件栈  
 ![](images/flink-stack-frontpage.png)    
 ```
 flink deploy:
@@ -102,8 +102,8 @@ flink liberaries:
 总结：
     flinK为支持各种计算场景提供了相应的高层api
     1.提供DataSet API来支持批处理场景
-    2.提供DataSream API来支持批流理场景
-    3.提供CEP API来支持F复杂事件处理（Complex Event Processing）的场景
+    2.提供DataSream API来支持流处理场景
+    3.提供CEP API来支持复杂事件处理（Complex Event Processing）的场景
     4.提供Gelly API来支持图分析场景
     5.提供Table API来支持SQL-ON-BIGDATA场景
     6.提供FlinkML API来支持机器学习场景
@@ -115,7 +115,7 @@ flink为了和大数据生态圈的其他技术进行融合，也在努力的扩
 ```
 
 
-###spark的软件栈  
+### spark的软件栈  
 ![](images/spark-stack.png)   
 ```
 1.在高层api方面，flink和spark几乎一样都覆盖了大多数的大数据处理场景。

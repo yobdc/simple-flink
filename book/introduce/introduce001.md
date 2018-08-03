@@ -1,5 +1,5 @@
-#第一部分：flink概况
-##一、flink简介
+# 第一部分：flink概况
+## 一、flink简介
 ![](images/Snip20161205_9.png) 
 ```
 1.flink和spark类似，是一个通用的，基于内存计算的，大数据处理引擎。
@@ -10,18 +10,18 @@
 4.因其卓越的设计和良好的实现被国外誉为第4代大数据处理引擎。它很好的实现了流处理，批处理的结合，并可以应用到
   SQL-ON-BIGDATA,图计算，机器学习等领域，是非常值得认真学习的一个大数据处理框架。
 ```
-###1.官方网站
+### 1.官方网站
 ```
 https://flink.apache.org
 ```
 
-###2.github地址
+### 2.github地址
 ```
 https://github.com/apache/flink
 ```
 ![](images/Snip20171112_1.png) 
 
-###3.flink基本架构
+### 3.flink基本架构
 ![](images/Apache-Flink-Architecture.png) 
 ```
 1.flink和Hadoop一样是一个主从式的分布式系统,有主节点（master）和从节点（worker）组成。
@@ -43,7 +43,7 @@ https://github.com/apache/flink
 3.TM负责执行相应的task,并将执行的进度情况实时上报给JM
 ```
 
-###4.flink和hdfs结合
+### 4.flink和hdfs结合
 ![](images/Picture1.png) 
 ```
 1.flink作为大数据生态圈的一员，它和Hadoop的hdfs是兼容的。

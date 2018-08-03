@@ -1,20 +1,20 @@
-__##《flink简介》
+## 《flink简介》
 ```
 1.flink和spark类似，是一个通用的，基于内存计算的，大数据处理引擎。
 2.2008年是德国柏林理工大学一个研究性项目，用Java和Scala混合编写而成的。
 3.2014年被Apache孵化器所接受，迅速地成为了阿帕奇顶级项目ASF(Apache Software Foundation)。
 ```
-###1.官方网站
+### 1.官方网站
 ```
 https://flink.apache.org
 ```
 
-###2.github地址
+### 2.github地址
 ```
 https://github.com/apache/flink
 ```
 
-###3.flink基本架构
+### 3.flink基本架构
 ![](images/Picture0.png) 
 ```
 1.flink和Hadoop一样是一个主从式的分布式系统,有主节点（master）和从节点（worker）组成。
@@ -25,7 +25,7 @@ https://github.com/apache/flink
 6.flinK使用一个client来提交计算任务。
 ```
 
-###4.flink和hdfs结合
+### 4.flink和hdfs结合
 ![](images/Picture1.png) 
 ```
 1.flink作为大数据生态圈的一员，它和Hadoop的hdfs是兼容的。
@@ -33,7 +33,7 @@ https://github.com/apache/flink
 3.flink也能照顾到数据的本地行，移动计算而不是移动数据。
 ```
 
-###5.flink的软件栈
+### 5.flink的软件栈
 ![](images/Snip20161103_10.png) 
 ```
 flink deploy:
