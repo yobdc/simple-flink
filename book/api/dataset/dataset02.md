@@ -117,7 +117,7 @@ def reduceGroup[R](reducer: GroupReduceFunction[T, R])
 
 Creates a new DataSet by passing all elements in this DataSet to the group reduce function.
 
-此函数和reduce函数类似，不过它每次处理一个grop而非一个元素。
+此函数和reduce函数类似，不过它每次处理一个group而非一个元素。
 ```
 ### ReduceGroup示例一，操作tuple
 执行程序：
