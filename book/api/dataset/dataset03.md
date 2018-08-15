@@ -856,7 +856,7 @@ res97: Boolean = false
 
 
 
-## Aggregate???
+## aggregate
 ```
 def aggregate(agg: Aggregations, field: String): AggregateDataSet[T]
 def aggregate(agg: Aggregations, field: Int): AggregateDataSet[T]
@@ -866,7 +866,7 @@ Creates a new DataSet by aggregating the specified tuple field using the given a
 
 
 
-## CoGroup???
+## coGroup
 ```
 def
 coGroup[O](other: DataSet[O])(implicit arg0: ClassTag[O]): UnfinishedCoGroupOperation[T, O]
@@ -876,7 +876,7 @@ containing a list of elements for that key from both DataSets.
 ```
 
 
-## combineGroup???
+## combineGroup
 
 ```
 def combineGroup[R](fun: (Iterator[T], Collector[R]) ⇒ 
