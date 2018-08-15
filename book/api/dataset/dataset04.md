@@ -180,7 +180,7 @@ r.collect
 res156: Seq[Point] = Buffer(Point(2.0,3.0), Point(6.0,5.0), Point(10.0,7.0))
 ```
 
-##mapWith示例二：偏函数
+## mapWith示例二：偏函数
 执行程序：
 ```
 //1.引入增强依赖
