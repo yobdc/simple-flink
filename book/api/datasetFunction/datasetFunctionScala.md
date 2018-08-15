@@ -1,10 +1,10 @@
-#一、Flink DateSet定制API详解(Scala版)
-##Map
+# 一、Flink DateSet定制API详解(Scala版)
+## Map
 ```
 以element为粒度，对element进行1：1的转化
 ```
 
-####执行程序：
+#### 执行程序：
 ```scala
 package code.book.batch.dataset.advance.api
 
@@ -17,9 +17,9 @@ object MapFunction001scala {
     val env = ExecutionEnvironment.getExecutionEnvironment
     val text = env.fromElements("flink vs spark", "buffer vs  shuffer")
 
-    // 2.以element为粒度，将element进行map操作，转化为大写并添加后缀字符串"--##bigdata##"
+    // 2.以element为粒度，将element进行map操作，转化为大写并添加后缀字符串"--## bigdata## "
     val text2 = text.map(new MapFunction[String, String] {
-      override def map(s: String): String = s.toUpperCase() + "--##bigdata##"
+      override def map(s: String): String = s.toUpperCase() + "--## bigdata## "
     })
     text2.print()
 
@@ -41,11 +41,11 @@ object MapFunction001scala {
 }
 
 ```
-####执行结果：
+#### 执行结果：
 ```scala
 text2.print();
-FLINK VS SPARK--##bigdata##
-BUFFER VS  SHUFFER--##bigdata##
+FLINK VS SPARK--## bigdata## 
+BUFFER VS  SHUFFER--## bigdata## 
 
 text3.print();
 (FLINK VS SPARK,14)
@@ -56,11 +56,11 @@ Wc(FLINK VS SPARK,14)
 Wc(BUFFER VS  SHUFFER,18)
 ```
 
-##mapPartition
+## mapPartition
 ```
 以partition为粒度，对element进行1：1的转化。有时候会比map效率高。
 ```
-####执行程序：
+#### 执行程序：
 ```scala
 package code.book.batch.dataset.advance.api
 
@@ -93,7 +93,7 @@ object MapPartitionFunction001scala {
       override def mapPartition(iterable: Iterable[String], collector: Collector[String]): Unit = {
         val itor = iterable.iterator()
         while (itor.hasNext) {
-          val line = itor.next().toUpperCase + "--##bigdata##"
+          val line = itor.next().toUpperCase + "--## bigdata## "
           collector.collect(line)
         }
       }
@@ -117,25 +117,25 @@ object MapPartitionFunction001scala {
   }
 }
 ```
-####执行结果：
+#### 执行结果：
 ```scala
 text2.print();
 2
 
 text3.print();
-FLINK VS SPARK--##bigdata##
-BUFFER VS  SHUFFER--##bigdata##
+FLINK VS SPARK--## bigdata## 
+BUFFER VS  SHUFFER--## bigdata## 
 
 text4.print();
 Wc(FLINK VS SPARK,14)
 Wc(BUFFER VS  SHUFFER,18)
 ```
 
-##flatMap
+## flatMap
 ```
 以element为粒度，对element进行1：n的转化。
 ```
-####执行程序：
+#### 执行程序：
 ```scala
 package code.book.batch.dataset.advance.api
 
@@ -148,10 +148,10 @@ object FlatMapFunction001scala {
     val env = ExecutionEnvironment.getExecutionEnvironment
     val text = env.fromElements("flink vs spark", "buffer vs  shuffer")
 
-    // 2.以element为粒度，将element进行map操作，转化为大写并添加后缀字符串"--##bigdata##"
+    // 2.以element为粒度，将element进行map操作，转化为大写并添加后缀字符串"--## bigdata## "
     val text2 = text.flatMap(new FlatMapFunction[String, String]() {
       override def flatMap(s: String, collector: Collector[String]): Unit = {
-        collector.collect(s.toUpperCase() + "--##bigdata##")
+        collector.collect(s.toUpperCase() + "--## bigdata## ")
       }
     })
     text2.print()
@@ -177,11 +177,11 @@ object FlatMapFunction001scala {
   }
 }
 ```
-####执行结果：
+#### 执行结果：
 ```scala
 text2.print()
-FLINK VS SPARK--##bigdata##
-BUFFER VS  SHUFFER--##bigdata##
+FLINK VS SPARK--## bigdata## 
+BUFFER VS  SHUFFER--## bigdata## 
 
 text3.collect().foreach(_.foreach(println(_)))
 FLINK
@@ -192,11 +192,11 @@ VS
 SHUFFLE
 ```
 
-##filter
+## filter
 ```
 以element为粒度，对element进行过滤操作。将满足过滤条件的element组成新的DataSet
 ```
-####执行程序：
+#### 执行程序：
 ```scala
 package code.book.batch.dataset.advance.api
 
@@ -227,7 +227,7 @@ object FilterFunction001scala {
   }
 }
 ```
-####执行结果：
+#### 执行结果：
 ```scala
 text2.print()
 2
@@ -243,11 +243,11 @@ text3.print()
 ```
 
 
-##Reduce
+## Reduce
 ```
 以element为粒度，对element进行合并操作。最后只能形成一个结果。
 ```
-####执行程序：
+#### 执行程序：
 ```scala
 package code.book.batch.dataset.advance.api
 
@@ -299,7 +299,7 @@ object ReduceFunction001scala {
   }
 }
 ```
-####执行结果：
+#### 执行结果：
 ```scala
 text2.print()
 28
@@ -321,12 +321,12 @@ intermediateResult=21 ,next=7
 
 
 
-##reduceGroup
+## reduceGroup
 ```
 对每一组的元素分别进行合并操作。与reduce类似，不过它能为每一组产生一个结果。
 如果没有分组，就当作一个分组，此时和reduce一样，只会产生一个结果。
 ```
-####执行程序：
+#### 执行程序：
 ```scala
 package code.book.batch.dataset.advance.api
 
@@ -398,7 +398,7 @@ object GroupReduceFunction001scala {
   }
 }
 ```
-####执行结果：
+#### 执行结果：
 ```scala
 text3.print()
 28
@@ -411,11 +411,11 @@ data2.print
 (zhangsan,4000)
 ```
 
-##Join
+## Join
 ```
 join将两个DataSet按照一定的关联度进行类似SQL中的Join操作。
 ```
-####执行程序：
+#### 执行程序：
 ```scala
 package code.book.batch.dataset.advance.api
 
@@ -443,7 +443,7 @@ object JoinFunction001scala {
   }
 }
 ```
-####执行结果：
+#### 执行结果：
 ```scala
 text2.print()
 ((A001,wangwu,wangwu@qq.com),(P003,wangwu))
@@ -452,11 +452,11 @@ text2.print()
 ((A001,lisi,lisi@qq.com),(P004,lisi))
 ```
 
-##CoGroup
+## CoGroup
 ```
 将2个DataSet中的元素，按照key进行分组，一起分组2个DataSet。而groupBy值能分组一个DataSet
 ```
-####执行程序：
+#### 执行程序：
 ```scala
 package code.book.batch.dataset.advance.api
 
@@ -484,7 +484,7 @@ object CoGroupFunction001scala {
   }
 }
 ```
-####执行结果：
+#### 执行结果：
 ```scala
 text2.print()
 ([Lscala.Tuple3;@6c2c1385,[Lscala.Tuple2;@5f354bcf)
@@ -502,209 +502,209 @@ text2.print()
 
 
 
-https://ci.apache.org/projects/flink/flink-docs-release-1.1/apis/batch/index.html#specifying-keys
+https://ci.apache.org/projects/flink/flink-docs-release-1.1/apis/batch/index.html# specifying-keys
 
 
 
 
 
-##XXXX
+## XXXX
 ```
 ```
-####执行程序：
+#### 执行程序：
 ```scala
 ```
-####执行结果：
-```scala
-```
-
-##XXXX
-```
-```
-####执行程序：
-```scala
-```
-####执行结果：
+#### 执行结果：
 ```scala
 ```
 
-##XXXX
+## XXXX
 ```
 ```
-####执行程序：
+#### 执行程序：
 ```scala
 ```
-####执行结果：
-```scala
-```
-
-##XXXX
-```
-```
-####执行程序：
-```scala
-```
-####执行结果：
+#### 执行结果：
 ```scala
 ```
 
-##XXXX
+## XXXX
 ```
 ```
-####执行程序：
+#### 执行程序：
 ```scala
 ```
-####执行结果：
-```scala
-```
-
-##XXXX
-```
-```
-####执行程序：
-```scala
-```
-####执行结果：
+#### 执行结果：
 ```scala
 ```
 
-##XXXX
+## XXXX
 ```
 ```
-####执行程序：
+#### 执行程序：
 ```scala
 ```
-####执行结果：
-```scala
-```
-
-##XXXX
-```
-```
-####执行程序：
-```scala
-```
-####执行结果：
+#### 执行结果：
 ```scala
 ```
 
-##XXXX
+## XXXX
 ```
 ```
-####执行程序：
+#### 执行程序：
 ```scala
 ```
-####执行结果：
-```scala
-```
-
-##XXXX
-```
-```
-####执行程序：
-```scala
-```
-####执行结果：
+#### 执行结果：
 ```scala
 ```
 
-##XXXX
+## XXXX
 ```
 ```
-####执行程序：
+#### 执行程序：
 ```scala
 ```
-####执行结果：
-```scala
-```
-
-##XXXX
-```
-```
-####执行程序：
-```scala
-```
-####执行结果：
+#### 执行结果：
 ```scala
 ```
 
-##XXXX
+## XXXX
 ```
 ```
-####执行程序：
+#### 执行程序：
 ```scala
 ```
-####执行结果：
-```scala
-```
-
-##XXXX
-```
-```
-####执行程序：
-```scala
-```
-####执行结果：
+#### 执行结果：
 ```scala
 ```
 
-##XXXX
+## XXXX
 ```
 ```
-####执行程序：
+#### 执行程序：
 ```scala
 ```
-####执行结果：
-```scala
-```
-
-##XXXX
-```
-```
-####执行程序：
-```scala
-```
-####执行结果：
+#### 执行结果：
 ```scala
 ```
 
-##XXXX
+## XXXX
 ```
 ```
-####执行程序：
+#### 执行程序：
 ```scala
 ```
-####执行结果：
-```scala
-```
-
-##XXXX
-```
-```
-####执行程序：
-```scala
-```
-####执行结果：
+#### 执行结果：
 ```scala
 ```
 
-##XXXX
+## XXXX
 ```
 ```
-####执行程序：
+#### 执行程序：
 ```scala
 ```
-####执行结果：
+#### 执行结果：
 ```scala
 ```
 
-##XXXX
+## XXXX
 ```
 ```
-####执行程序：
+#### 执行程序：
 ```scala
 ```
-####执行结果：
+#### 执行结果：
+```scala
+```
+
+## XXXX
+```
+```
+#### 执行程序：
+```scala
+```
+#### 执行结果：
+```scala
+```
+
+## XXXX
+```
+```
+#### 执行程序：
+```scala
+```
+#### 执行结果：
+```scala
+```
+
+## XXXX
+```
+```
+#### 执行程序：
+```scala
+```
+#### 执行结果：
+```scala
+```
+
+## XXXX
+```
+```
+#### 执行程序：
+```scala
+```
+#### 执行结果：
+```scala
+```
+
+## XXXX
+```
+```
+#### 执行程序：
+```scala
+```
+#### 执行结果：
+```scala
+```
+
+## XXXX
+```
+```
+#### 执行程序：
+```scala
+```
+#### 执行结果：
+```scala
+```
+
+## XXXX
+```
+```
+#### 执行程序：
+```scala
+```
+#### 执行结果：
+```scala
+```
+
+## XXXX
+```
+```
+#### 执行程序：
+```scala
+```
+#### 执行结果：
+```scala
+```
+
+## XXXX
+```
+```
+#### 执行程序：
+```scala
+```
+#### 执行结果：
 ```scala
 ```
 

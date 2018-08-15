@@ -1,11 +1,11 @@
 
-#一、Flink DateStream API详解
+# 一、Flink DateStream API详解
 
-##map
+## map
 ```
 转化DateStream中的每一个元素。
 ```
-###map示例程序一：
+### map示例程序一：
 执行程序：
 ```scale
 package code.datastream
@@ -42,7 +42,7 @@ object MapTest001 {
 ```
 
 
-###map示例程序二：
+### map示例程序二：
 执行程序：
 ```scale
 package code.datastream
@@ -77,7 +77,7 @@ object MapTest002 {
 ```
 
 
-##flatMap
+## flatMap
 ```
 先进行flat操作，然后进行map操作。
 ```
@@ -121,7 +121,7 @@ object FlatMapTest001 {
 ```
 
 
-##filter
+## filter
 ```
 过滤满足条件的数据，不满足条件的数据将被丢弃。
 ```
@@ -158,7 +158,7 @@ object FilterTest001 {
 ```
 
 
-##keyBy
+## keyBy
 ```
 将DataStream 转化为 KeyedStream
 ```
@@ -197,7 +197,7 @@ object KeyByTest001 {
 
 
 
-##Reduce
+## Reduce
 ```
 将DataStream 转化为 KeyedStream
 ```
