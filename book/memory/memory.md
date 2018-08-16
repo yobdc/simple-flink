@@ -1,12 +1,12 @@
-##一、基于JVM的大数据生态圈
-###1.bigdata on jvm
+## 一、基于JVM的大数据生态圈
+### 1.bigdata on jvm
 ![](images/Snip20161120_6.png) 
 ```
 1.现在大多数开源大数据处理框架都是基于jvm的，像 Apache Hadoop,Apache Spark,Apache Hbase,
   Apache Kafka,Apache Flink等。
 2.JVM上的程序一方面享受着它带来的好处，也要承受着JVM带来的弊端。
 ```
-###2.jvm的弊端
+### 2.jvm的弊端
 ![](images/Snip20161120_7.png) 
 ```
 1.JVM的OOM问题
@@ -32,8 +32,8 @@ JVM的GC机制一直都是让人又爱又恨的东西。一方面，JVM自己管
 ```
 现在很多大数据处理引擎，开始自动动手管理内存。比如 Apache Drill,Apache Ignite,Apache Geode,Apache Spark等。 
 ```
-##二、flink的内存管理机制
-###0.flink的内存划分
+## 二、flink的内存管理机制
+### 0.flink的内存划分
 ![](images/Snip20161123_5.png) 
 ```
 1.flink在JVM的heap内有自己的内存管理空间。
@@ -42,7 +42,7 @@ JVM的GC机制一直都是让人又爱又恨的东西。一方面，JVM自己管
 4.Managed区域是指flink管理这部分区域，它不受jvm管理不存在GC问题，用于存放Hashing,Sorting,Caching等数据
 5.Network-Buffer区域是指flink在进行计算时需要通过网络进行交换数据的区域。用于存放Shuffles，Broadcasts数据。
 ```
-###1.flink使用堆外内存
+### 1.flink使用堆外内存
 ![](images/memory-mgmt.png) 
 
 ```
@@ -69,7 +69,7 @@ Java对象的存储密度叫低，现在大量数据都是二进制的表示形�
 地放进内存中。这使得数据结构可以对高速缓存更友好，可以从 L1/L2/L3 缓存获得性能的提升
 ```
 
-###2.flink量身打造序列化方案   
+### 2.flink量身打造序列化方案   
 假设有一个Tuple3<Integer, Double, Person> 类型POJO
 ```
 
@@ -116,7 +116,7 @@ GenericTypeInfo: 任意无法匹配之前几种类型的类。
 
 
 
-###3.flink采用数据和引用分开存储的方式操作数据
+### 3.flink采用数据和引用分开存储的方式操作数据
 
 ```
 1.flink提供大量的api,有些sql-api或sort，group，join等操作牵涉到大量的数据，使用大量内存。
@@ -145,14 +145,14 @@ GenericTypeInfo: 任意无法匹配之前几种类型的类。
 6.访问数据时，只需沿着排好序的ref区域顺序访问，通过ref.pointer找到对应的真实数据.
 ```
 
-##三、测试flink内存管理的表现
+## 三、测试flink内存管理的表现
 ```
 国外有人做了一个测试，比较flink,kryo,java三种序列化方式的表现。
 详情见：http://flink.apache.org/news/2015/05/11/Juggling-with-Bits-and-Bytes.html
 ```
-###处理效率对比
+### 处理效率对比
 ![](images/sort-benchmark.png) 
-###GC和内存使用率对比
+### GC和内存使用率对比
 ![](images/Snip20161120_9.png) 
 ```
 不难看出，flink的内存管理机制，在整个测试中所表现优势还是非常明显的！
@@ -160,7 +160,7 @@ GenericTypeInfo: 任意无法匹配之前几种类型的类。
 
 
 
-##四、堆外内存的发展方向  
+## 四、堆外内存的发展方向  
 http://wuchong.me/blog/2016/04/29/flink-internals-memory-manage/
 
 
