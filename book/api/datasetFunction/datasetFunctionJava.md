@@ -1,10 +1,10 @@
-#一、Flink DateSet定制API详解(JAVA版)
-##Map
+# 一、Flink DateSet定制API详解(JAVA版)
+## Map
 ```
 以element为粒度，对element进行1：1的转化
 ```
 
-####执行程序：
+#### 执行程序：
 ```java
 package code.book.batch.dataset.advance.api;
 
@@ -19,11 +19,11 @@ public class MapFunction001java {
         final ExecutionEnvironment env = ExecutionEnvironment.getExecutionEnvironment();
         DataSet<String> text = env.fromElements("flink vs spark", "buffer vs  shuffle");
 
-        // 2.以element为粒度，将element进行map操作，转化为大写并添加后缀字符串"--##bigdata##"
+        // 2.以element为粒度，将element进行map操作，转化为大写并添加后缀字符串"--## bigdata## "
         DataSet<String> text2 = text.map(new MapFunction<String, String>() {
             @Override
             public String map(String s) throws Exception {
-                return s.toUpperCase() + "--##bigdata##";
+                return s.toUpperCase() + "--## bigdata## ";
             }
         });
         text2.print();
@@ -66,11 +66,11 @@ public class MapFunction001java {
 }
 
 ```
-####执行结果：
+#### 执行结果：
 ```java
 text2.print();
-FLINK VS SPARK--##bigdata##
-BUFFER VS  SHUFFLE--##bigdata##
+FLINK VS SPARK--## bigdata## 
+BUFFER VS  SHUFFLE--## bigdata## 
 
 text3.print();
 (FLINK VS SPARK,14)
@@ -81,12 +81,12 @@ Wc{line='FLINK VS SPARK', lineLength='14'}
 Wc{line='BUFFER VS  SHUFFLE', lineLength='18'}
 ```
 
-##MapPartition
+## MapPartition
 ```
 以element为粒度，对element进行1：n的转化。
 ```
 
-####执行程序：
+#### 执行程序：
 ```java
 package code.book.batch.dataset.advance.api;
 
@@ -126,7 +126,7 @@ public class MapPartitionFunction001java {
             public void mapPartition(Iterable<String> iterable, Collector<String> collector)
             throws Exception {
                 for (String s : iterable) {
-                    s = s.toUpperCase() + "--##bigdata##";
+                    s = s.toUpperCase() + "--## bigdata## ";
                     collector.collect(s);
                 }
             }
@@ -167,14 +167,14 @@ public class MapPartitionFunction001java {
 }
 
 ```
-####执行结果：
+#### 执行结果：
 ```java
 text2.print();
 2
 
 text3.print();
-FLINK VS SPARK--##bigdata##
-BUFFER VS  SHUFFER--##bigdata##
+FLINK VS SPARK--## bigdata## 
+BUFFER VS  SHUFFER--## bigdata## 
 
 text4.print();
 Wc{line='FLINK VS SPARK', lineLength='14'}
@@ -182,11 +182,11 @@ Wc{line='BUFFER VS  SHUFFER', lineLength='18'}
 ```
 
 
-##flatMap
+## flatMap
 ```
 以element为粒度，对element进行1：n的转化。
 ```
-####执行程序：
+#### 执行程序：
 ```java
 package code.book.batch.dataset.advance.api;
 import org.apache.flink.api.common.functions.FlatMapFunction;
@@ -201,16 +201,16 @@ public class FlatMapFunction001java {
         final ExecutionEnvironment env = ExecutionEnvironment.getExecutionEnvironment();
         DataSet<String> text = env.fromElements("flink vs spark", "buffer vs  shuffle");
 
-        // 2.以element为粒度，将element进行map操作，转化为大写并添加后缀字符串"--##bigdata##"
+        // 2.以element为粒度，将element进行map操作，转化为大写并添加后缀字符串"--## bigdata## "
         DataSet<String> text2 = text.flatMap(new FlatMapFunction<String, String>() {
             @Override
             public void flatMap(String s, Collector<String> collector) throws Exception {
-                collector.collect(s.toUpperCase() + "--##bigdata##");
+                collector.collect(s.toUpperCase() + "--## bigdata## ");
             }
         });
         text2.print();
 
-        // 3.以element为粒度，将element进行map操作，转化为大写并添加后缀字符串"--##bigdata##"
+        // 3.以element为粒度，将element进行map操作，转化为大写并添加后缀字符串"--## bigdata## "
         DataSet<String[]> text3 = text.flatMap(new FlatMapFunction<String, String[]>() {
             @Override
             public void flatMap(String s, Collector<String[]> collector) throws Exception {
@@ -233,11 +233,11 @@ public class FlatMapFunction001java {
     }
 }
 ```
-####执行结果：
+#### 执行结果：
 ```java
 text2.print();
-FLINK VS SPARK--##bigdata##
-BUFFER VS  SHUFFLE--##bigdata##
+FLINK VS SPARK--## bigdata## 
+BUFFER VS  SHUFFLE--## bigdata## 
 
 collect.forEach(arr -> {
 for (String token : arr) {System.out.println(token);}});
@@ -250,11 +250,11 @@ SHUFFLE
 ```
 
 
-##filter
+## filter
 ```
 以element为粒度，对element进行过滤操作。将满足过滤条件的element组成新的DataSet
 ```
-####执行程序：
+#### 执行程序：
 ```java
 package code.book.batch.dataset.advance.api;
 
@@ -288,7 +288,7 @@ public class FilterFunction001java {
     }
 }
 ```
-####执行结果：
+#### 执行结果：
 ```java
 text2.print()
 2
@@ -303,11 +303,11 @@ text3.print()
 6
 ```
 
-##Reduce
+## Reduce
 ```
 以element为粒度，对element进行合并操作。最后只能形成一个结果。
 ```
-####执行程序：
+#### 执行程序：
 ```java
 package code.book.batch.dataset.advance.api;
 
@@ -364,7 +364,7 @@ public class ReduceFunction001java {
     }
 }
 ```
-####执行结果：
+#### 执行结果：
 ```java
 text2.print()
 28
@@ -385,12 +385,12 @@ intermediateResult=21 ,next=7
 ```
 
 
-##reduceGroup
+## reduceGroup
 ```
 对每一组的元素分别进行合并操作。与reduce类似，不过它能为每一组产生一个结果。
 如果没有分组，就当作一个分组，此时和reduce一样，只会产生一个结果。
 ```
-####执行程序：
+#### 执行程序：
 ```java
 package code.book.batch.dataset.advance.api;
 
@@ -471,7 +471,7 @@ public class GroupReduceFunction001java {
     }
 }
 ```
-####执行结果：
+#### 执行结果：
 ```scala
 text3.print()
 28
@@ -486,11 +486,11 @@ data2.print
 
 
 
-##Join
+## Join
 ```
 join将两个DataSet按照一定的关联度进行类似SQL中的Join操作。
 ```
-####执行程序：
+#### 执行程序：
 ```java
 package code.book.batch.dataset.advance.api;
 
@@ -536,7 +536,7 @@ public class JoinFunction001java {
     }
 }
 ```
-####执行结果：
+#### 执行结果：
 ```java
 text2.print();
 (P003,A001,wangwu,wangwu@qq.com)
@@ -546,11 +546,11 @@ text2.print();
 ```
 
 
-##CoGroup
+## CoGroup
 ```
 将2个DataSet中的元素，按照key进行分组，一起分组2个DataSet。而groupBy值能分组一个DataSet
 ```
-####执行程序：
+#### 执行程序：
 ```java
 package code.book.batch.dataset.advance.api;
 
@@ -613,7 +613,7 @@ public class CoGroupFunction001java {
     }
 }
 ```
-####执行结果：
+#### 执行结果：
 ```java
 text2.print();
 (P003,A001,wangwu,wangwu@qq.com)
@@ -636,252 +636,252 @@ text2.print();
 
 
 
-##XXXX
+## XXXX
 ```
 ```
-####执行程序：
+#### 执行程序：
 ```java
 
 ```
-####执行结果：
-```java
-```
-
-
-
-
-##XXXX
-```
-```
-####执行程序：
-```java
-
-```
-####执行结果：
+#### 执行结果：
 ```java
 ```
 
 
 
 
-##XXXX
+## XXXX
 ```
 ```
-####执行程序：
+#### 执行程序：
 ```java
 
 ```
-####执行结果：
-```java
-```
-
-
-
-
-##XXXX
-```
-```
-####执行程序：
-```java
-
-```
-####执行结果：
+#### 执行结果：
 ```java
 ```
 
 
 
 
-##XXXX
+## XXXX
 ```
 ```
-####执行程序：
+#### 执行程序：
 ```java
 
 ```
-####执行结果：
-```java
-```
-
-
-
-
-##XXXX
-```
-```
-####执行程序：
-```java
-
-```
-####执行结果：
+#### 执行结果：
 ```java
 ```
 
 
 
 
-##XXXX
+## XXXX
 ```
 ```
-####执行程序：
+#### 执行程序：
 ```java
 
 ```
-####执行结果：
-```java
-```
-
-
-
-
-##XXXX
-```
-```
-####执行程序：
-```java
-
-```
-####执行结果：
+#### 执行结果：
 ```java
 ```
 
 
 
 
-##XXXX
+## XXXX
 ```
 ```
-####执行程序：
+#### 执行程序：
 ```java
 
 ```
-####执行结果：
-```java
-```
-
-
-
-
-##XXXX
-```
-```
-####执行程序：
-```java
-
-```
-####执行结果：
+#### 执行结果：
 ```java
 ```
 
 
 
 
-##XXXX
+## XXXX
 ```
 ```
-####执行程序：
+#### 执行程序：
 ```java
 
 ```
-####执行结果：
-```java
-```
-
-
-
-
-##XXXX
-```
-```
-####执行程序：
-```java
-
-```
-####执行结果：
+#### 执行结果：
 ```java
 ```
 
 
 
 
-##XXXX
+## XXXX
 ```
 ```
-####执行程序：
+#### 执行程序：
 ```java
 
 ```
-####执行结果：
-```java
-```
-
-
-
-
-##XXXX
-```
-```
-####执行程序：
-```java
-
-```
-####执行结果：
+#### 执行结果：
 ```java
 ```
 
 
 
 
-##XXXX
+## XXXX
 ```
 ```
-####执行程序：
+#### 执行程序：
 ```java
 
 ```
-####执行结果：
-```java
-```
-
-
-
-
-##XXXX
-```
-```
-####执行程序：
-```java
-
-```
-####执行结果：
+#### 执行结果：
 ```java
 ```
 
 
 
 
-##XXXX
+## XXXX
 ```
 ```
-####执行程序：
+#### 执行程序：
 ```java
 
 ```
-####执行结果：
+#### 执行结果：
 ```java
 ```
 
 
 
 
-##XXXX
+## XXXX
 ```
 ```
-####执行程序：
+#### 执行程序：
 ```java
 
 ```
-####执行结果：
+#### 执行结果：
+```java
+```
+
+
+
+
+## XXXX
+```
+```
+#### 执行程序：
+```java
+
+```
+#### 执行结果：
+```java
+```
+
+
+
+
+## XXXX
+```
+```
+#### 执行程序：
+```java
+
+```
+#### 执行结果：
+```java
+```
+
+
+
+
+## XXXX
+```
+```
+#### 执行程序：
+```java
+
+```
+#### 执行结果：
+```java
+```
+
+
+
+
+## XXXX
+```
+```
+#### 执行程序：
+```java
+
+```
+#### 执行结果：
+```java
+```
+
+
+
+
+## XXXX
+```
+```
+#### 执行程序：
+```java
+
+```
+#### 执行结果：
+```java
+```
+
+
+
+
+## XXXX
+```
+```
+#### 执行程序：
+```java
+
+```
+#### 执行结果：
+```java
+```
+
+
+
+
+## XXXX
+```
+```
+#### 执行程序：
+```java
+
+```
+#### 执行结果：
+```java
+```
+
+
+
+
+## XXXX
+```
+```
+#### 执行程序：
+```java
+
+```
+#### 执行结果：
 ```java
 ```
 
